@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 
-import { GET } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/libs/prismadb";
+import { GET } from "../api/auth/[...nextauth]/route";
 
 export async function getSession() {
   return await getServerSession(GET);
@@ -15,8 +15,10 @@ export default async function getCurrentUser() {
       return null;
     }
 
-    const currentUser = await prisma?.user.findUnique({
-      where: { email: session.user.email as string },
+    const currentUser = await prisma.user.findUnique({
+      where: {
+        email: session.user.email as string,
+      },
     });
 
     if (!currentUser) {
@@ -25,11 +27,11 @@ export default async function getCurrentUser() {
 
     return {
       ...currentUser,
-      createAt: currentUser.createdAt.toISOString(),
+      createdAt: currentUser.createdAt.toISOString(),
       updatedAt: currentUser.updatedAt.toISOString(),
       emailVerified: currentUser.emailVerified?.toISOString() || null,
     };
-  } catch (error) {
+  } catch (error: any) {
     return null;
   }
 }

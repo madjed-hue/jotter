@@ -6,8 +6,16 @@ import { FaUser } from "react-icons/fa";
 import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./SidebarItem";
 import SidebarTweetButton from "./SidebarTweetButton";
+import { SafeUser } from "@/types";
+import { signOut } from "next-auth/react";
 
-const Sidebar = () => {
+interface NavbarProps {
+  currentUser: SafeUser | null;
+}
+
+const Sidebar = ({ currentUser }: NavbarProps) => {
+  console.log(currentUser);
+
   const items = [
     {
       icon: BsHouseFill,
@@ -42,7 +50,14 @@ const Sidebar = () => {
               label={item.label}
             />
           ))}
-          <SidebarItem icon={BiLogOut} label="Logout" />
+          {currentUser && (
+            <SidebarItem
+              onClick={() => signOut()}
+              icon={BiLogOut}
+              label="Logout"
+              currentUser={currentUser}
+            />
+          )}
           <SidebarTweetButton />
         </div>
       </div>
