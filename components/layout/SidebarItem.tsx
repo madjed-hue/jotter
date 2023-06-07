@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { BsDot } from "react-icons/bs";
 import useLoginModal from "@/hooks/useLoginModal";
 import { SafeUser } from "@/types";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 interface SidebarItemProps {
   label: string;
@@ -15,7 +16,7 @@ interface SidebarItemProps {
   onClick?: () => void;
   auth?: boolean;
   alert?: boolean;
-  currentUser?: SafeUser | null;
+  // currentUser?: SafeUser | null;
 }
 
 const SidebarItem = ({
@@ -25,11 +26,11 @@ const SidebarItem = ({
   auth,
   onClick,
   alert,
-  currentUser,
-}: SidebarItemProps) => {
+}: // currentUser,
+SidebarItemProps) => {
   const router = useRouter();
   const loginModal = useLoginModal();
-
+  const currentUser = useCurrentUser();
   const handleClick = useCallback(() => {
     if (onClick) {
       return onClick();

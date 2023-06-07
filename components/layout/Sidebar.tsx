@@ -14,8 +14,6 @@ interface NavbarProps {
 }
 
 const Sidebar = ({ currentUser }: NavbarProps) => {
-  console.log(currentUser);
-
   const items = [
     {
       icon: BsHouseFill,
@@ -55,7 +53,7 @@ const Sidebar = ({ currentUser }: NavbarProps) => {
               onClick={() => signOut()}
               icon={BiLogOut}
               label="Logout"
-              currentUser={currentUser}
+              // currentUser={currentUser}
             />
           )}
           <SidebarTweetButton />
